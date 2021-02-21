@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1340
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommentSaver0221", "CommentSaver0221\CommentSaver0221.csproj", "{5E0EEEF4-E3A0-482B-AD6D-9E17CA5ABA27}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5E0EEEF4-E3A0-482B-AD6D-9E17CA5ABA27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E0EEEF4-E3A0-482B-AD6D-9E17CA5ABA27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E0EEEF4-E3A0-482B-AD6D-9E17CA5ABA27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E0EEEF4-E3A0-482B-AD6D-9E17CA5ABA27}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C741AAAA-2BB0-4CC5-96DF-D6BEC9A1CD22}
+	EndGlobalSection
+EndGlobal
