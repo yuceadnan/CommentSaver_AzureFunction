@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using CommentSaver0221.Models;
 
-namespace CommentSaver0221
+namespace CommentSaver
 {
     public static class AddCommentQueue
     {
@@ -22,11 +22,16 @@ namespace CommentSaver0221
             log.LogInformation("C# HTTP trigger function processed a request.");
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            CommentQueueModel data = JsonConvert.DeserializeObject<CommentQueueModel>(requestBody);
-            if (data != null)
+            CommentQueueModel comment = JsonConvert.DeserializeObject<CommentQueueModel>(requestBody);
+
+            if (comment != null)
             {
-                commentQueue.Add(JsonConvert.SerializeObject(data));
+                commentQueue.Add(JsonConvert.SerializeObject(comment));
+                log.LogInformation("Comment saved successfully.");
             }
+
+            //json dosyasında özel bir parametreye erişim
+            //var aa = Environment.GetEnvironmentVariable("myKey");
 
             string responseMessage = "This HTTP triggered function executed successfully.";
             return new OkObjectResult(responseMessage);

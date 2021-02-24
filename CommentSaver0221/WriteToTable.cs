@@ -1,33 +1,34 @@
 using System;
-using CommentSaver0221.Models;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Azure.Cosmos.Table;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using CommentSaver0221.Models;
 
-namespace CommentSaver0221
+namespace CommentSaver
 {
+    //connection bilgisi global set edilebiliyor
     [StorageAccount("AzureWebJobsStorage")]
     public static class WriteToTable
     {
         [FunctionName("WriteToTable")]
-        [return: Table("comments")]
-        public static CommentTableModel Run(
-            [QueueTrigger("comment-queue")] CommentQueueModel myQueueItem, 
-            [Queue("comments-queue-2")] ICollector<string> commentQueue,
+        public static void Run(
+            [QueueTrigger("comment-queue", Connection = "AzureWebJobsStorage")]CommentQueueModel myQueueItem,
+            [Table(tableName: "comments")] CloudTable cloudTable,
             ILogger log)
         {
             log.LogInformation($"C# Queue trigger function processed");
-
             var comment = new CommentTableModel(myQueueItem.PostId, Guid.NewGuid())
             {
-                Comment = myQueueItem.Message,
                 Author = myQueueItem.UserName,
+                Comment = myQueueItem.Message,
                 Status = false
             };
-            commentQueue.Add(JsonConvert.SerializeObject(comment));
-            log.LogInformation($"Comment added to comments-queue-2");
-            return comment;
+
+            cloudTable.CreateIfNotExists();
+            TableOperation operation = TableOperation.Insert(comment);
+            TableResult result = cloudTable.Execute(operation);
+
+            log.LogInformation("Comment added to table");
         }
     }
 }
